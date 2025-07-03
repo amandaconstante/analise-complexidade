@@ -8,7 +8,7 @@ Este projeto tem como objetivo analisar a complexidade algorítmica das operaç�
 
 * Árvore B (com ordens 1, 5 e 10)
 
-#### * Metodologia
+#### Metodologia
 Foram gerados conjuntos de dados com tamanhos variando de 1 a 10.000 elementos.
 
 As chaves foram geradas aleatoriamente (caso médio), utilizando a função rand() da linguagem C.
