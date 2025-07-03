@@ -1,5 +1,6 @@
 # Análise de Complexidade de Árvores Balanceadas 
-## (AVL, Rubro-Negra e B)
+### (AVL, Rubro-Negra e B)
+#### _Trabalho final da disciplina de Projeto de Arquivos_
 ### Objetivo
 Este projeto tem como objetivo analisar a complexidade algorítmica das operações de inserção e remoção (considerando balanceamentos) em três estruturas de dados:
 
