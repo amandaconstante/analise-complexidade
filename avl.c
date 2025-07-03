@@ -14,12 +14,11 @@ typedef struct arvore {
     struct no* raiz;
 } Arvore;
 
-// === Contadores de operações ===
+// ===> Contadores de operações 
 int contador_insercoes = 0;
 int contador_remocoes = 0;
 int contador_rotacoes = 0;
 
-// === Funções auxiliares ===
 int max(int a, int b) { return a > b ? a : b; }
 
 int altura(No* no) {
@@ -30,14 +29,14 @@ int fb(No* no) {
     return altura(no->esquerda) - altura(no->direita);
 }
 
-// === Criação da árvore ===
+// ===> Criação da árvore
 Arvore* criar() {
     Arvore *arvore = malloc(sizeof(Arvore));
     arvore->raiz = NULL;
     return arvore;
 }
 
-// === Rotação Simples Direita ===
+// ===> Rotação Simples Direita 
 No* rsd(Arvore* arvore, No* no) {
     contador_rotacoes++;
     No* pai = no->pai;
@@ -63,7 +62,7 @@ No* rsd(Arvore* arvore, No* no) {
     return esquerda;
 }
 
-// === Rotação Simples Esquerda ===
+// ===> Rotação Simples Esquerda
 No* rse(Arvore* arvore, No* no) {
     contador_rotacoes++;
     No* pai = no->pai;
@@ -89,7 +88,7 @@ No* rse(Arvore* arvore, No* no) {
     return direita;
 }
 
-// === Rotações duplas ===
+// ===> Rotações duplas
 No* rdd(Arvore* arvore, No* no) {
     no->esquerda = rse(arvore, no->esquerda);
     return rsd(arvore, no);
@@ -100,7 +99,7 @@ No* rde(Arvore* arvore, No* no) {
     return rse(arvore, no);
 }
 
-// === Balanceamento ===
+// ===> Balanceamento 
 void balanceamento(Arvore* arvore, No* no) {
     while (no) {
         no->altura = max(altura(no->esquerda), altura(no->direita)) + 1;
@@ -118,7 +117,7 @@ void balanceamento(Arvore* arvore, No* no) {
     }
 }
 
-// === Inserção ===
+// ===> Inserção
 void adicionar(Arvore* arvore, int valor) {
     contador_insercoes++;
     No* no = arvore->raiz;
@@ -145,20 +144,18 @@ void adicionar(Arvore* arvore, int valor) {
     balanceamento(arvore, pai);
 }
 
-// === Localizar ===
 No* localizar(No* no, int valor) {
     while (no && no->valor != valor)
         no = valor < no->valor ? no->esquerda : no->direita;
     return no;
 }
 
-// === Substituto em remoção ===
 No* minimo(No* no) {
     while (no->esquerda) no = no->esquerda;
     return no;
 }
 
-// === Remoção ===
+// ===> Remoção
 void remover(Arvore* arvore, int valor) {
     No* no = localizar(arvore->raiz, valor);
     if (!no) return;
@@ -202,7 +199,6 @@ void remover(Arvore* arvore, int valor) {
     }
 }
 
-// === Percorrer e visitar ===
 void percorrer(No* no, void (*callback)(int)) {
     if (no) {
         percorrer(no->esquerda, callback);
@@ -219,7 +215,7 @@ void visitar(int valor) {
 #define PASSO 1000
 #define AMOSTRAS 10
 
-// === Função para liberar memória da árvore recursivamente ===
+// ===> Função para liberar memória da árvore recursivamente
 void liberarNo(No* no) {
     if (no) {
         liberarNo(no->esquerda);
@@ -235,7 +231,6 @@ void liberarArvore(Arvore* arvore) {
     }
 }
 
-// === Main ===
 int main() {
     srand(time(NULL));
 
@@ -266,7 +261,7 @@ int main() {
                 adicionar(a, dados[j]);
             }
 
-            // Remover metade das chaves (primeiros N/2)
+            // Removr metade das chaves (N/2)
             for (int j = 0; j < tamanho / 2; j++) {
                 remover(a, dados[j]);
             }

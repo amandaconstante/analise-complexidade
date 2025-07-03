@@ -21,7 +21,6 @@ for arquivo, label in arquivos.items():
 
     df = pd.read_csv(arquivo)
 
-    # Garante que todas as métricas estejam presentes
     for metrica in metricas:
         if metrica not in df.columns:
             print(f"[AVISO] Coluna '{metrica}' ausente em '{arquivo}'. Preenchendo com 0.")
@@ -47,7 +46,7 @@ else:
     plt.title("Comparação de Operações nas Árvores")
     plt.xlabel("Tamanho da Entrada")
     plt.ylabel("Número de Operações (escala logarítmica)")
-    plt.yscale("log")  # você pode trocar por "symlog" se quiser testar
+    plt.yscale("log")  
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
