@@ -26,12 +26,12 @@ Foram contadas as seguintes operações:
 * Operações de balanceamento (como rotações ou divisões de nós)
 
 ### Estruturas Avaliadas:
-* **Árvore AVL:** Árvores binárias de busca auto-balanceadas que garantem que a diferença de altura entre as subárvores de qualquer nó seja no máximo 1. O balanceamento é realizado por meio de rotações.
+* **Árvore AVL:** Árvores binárias altamente balanceada. O balanceamento é realizado por meio de rotações.
 * **Árvore Rubro-Negra:** Árvores binárias de busca auto-balanceadas que utilizam um esquema de cores (vermelho/preto) e regras específicas para manter o balanceamento, garantindo que o caminho mais longo de qualquer nó raiz a uma folha não seja mais que duas vezes o comprimento do caminho mais curto.
-* **Árvore B (Ordem 1, 5, 10):** Árvores de múltiplos filhos projetadas para otimizar o acesso a dados em sistemas de armazenamento externo (como discos). O balanceamento é mantido através de operações de divisão (`split`) e fusão (`merge`) de nós. A `ordem` da árvore define o número máximo de chaves que um nó pode conter.
+* **Árvore B (Ordem 1, 5, 10):** Árvores de múltiplos filhos com divisão de nós.
 
 ### Resultados
-O resultado do experimento é apresentado no gráfico abaixo, que ilustra o número médio de operações realizadas (incluindo balanceamentos) em função do tamanho da entrada. O eixo Y está em escala logarítmica para facilitar a visualização das variações de desempenho.
+O resultado do experimento é apresentado no gráfico abaixo, que mostra o número médio de operações realizadas (incluindo balanceamentos) em função do tamanho da entrada. O eixo Y está em escala logarítmica para facilitar a visualização das variações de desempenho.
 
 ### Comparação de Operações nas Árvores
 ![image](https://github.com/user-attachments/assets/4d4258ee-0c37-4a2d-8048-9665beeb6ff5)
@@ -55,6 +55,17 @@ A análise do gráfico "Comparação de Operações nas Árvores" revela padrõe
 * **Inserção vs. Remoção:**
     * Para todas as estruturas, a operação de remoção geralmente apresenta um custo ligeiramente superior à inserção. Isso pode ser atribuído à maior complexidade envolvida na remoção, que frequentemente exige a busca por um predecessor ou sucessor e um rebalanceamento mais complexo para manter as propriedades da árvore.
 
+---
+
+#### Conclusão
+O projeto foi desenvolvido para comparar a eficiência das operações em diferentes estruturas de árvores balanceadas.
+
+As implementações consideram o número real de operações realizadas, refletindo o custo dos balanceamentos.
+
+Os resultados validam as complexidades teóricas e destacam a vantagem das Árvores B com ordens maiores para cenários com grandes volumes de dados. 
+A escolha da estrutura de árvore ideal, portanto, depende do contexto de aplicação, mas a Árvore B se afirma como uma solução robusta para armazenamento e recuperação eficiente em larga escala.
+
+---
 
 ### Execução do projeto
 Os experimentos foram implementados em C, com um script Python auxiliar para gerar os gráficos.
@@ -99,12 +110,4 @@ O script gerar_grafico.py lê os dados dos arquivos .txt e produz o arquivo graf
 ├── grafico.png
 └── README.md
 ```
----
 
-#### Conclusão
-O projeto foi desenvolvido para comparar a eficiência das operações em diferentes estruturas de árvores balanceadas.
-
-As implementações consideram o número real de operações realizadas, refletindo o custo dos balanceamentos.
-
-Os resultados validam as complexidades teóricas e destacam a vantagem das Árvores B com ordens maiores para cenários com grandes volumes de dados. 
-A escolha da estrutura de árvore ideal, portanto, depende do contexto de aplicação, mas a Árvore B se afirma como uma solução robusta para armazenamento e recuperação eficiente em larga escala.
