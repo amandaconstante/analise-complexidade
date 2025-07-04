@@ -276,7 +276,6 @@ int main() {
         for (int i = 0; i < tamanho; i++)
             inserir(a, vetor[i]);
 
-        // Remove 25% dos valores inseridos (aleatoriamente)
         for (int i = 0; i < tamanho / 4; i++)
             remover(a, vetor[i]);
 

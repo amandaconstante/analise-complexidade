@@ -60,6 +60,5 @@ def plot_remocoes():
     plt.savefig("grafico_remocoes.png")
     plt.close()
 
-# Executa os gráficos
 plot_insercoes()
 plot_remocoes()
