@@ -31,25 +31,24 @@ Foram contadas as seguintes operações:
 * **Árvore B (Ordem 1, 5, 10):** Árvores de múltiplos filhos com divisão de nós.
 
 ### Resultados
-O resultado do experimento é apresentado no gráfico abaixo, que mostra o número médio de operações realizadas (incluindo balanceamentos) em função do tamanho da entrada. O eixo Y está em escala logarítmica para facilitar a visualização das variações de desempenho.
+Abaixo estão os gráficos que representam o número médio de operações de balanceamento realizadas conforme o tamanho da entrada. O eixo Y está em escala logarítmica para evidenciar o crescimento assintótico.
+#### Inserções: 
+![image](https://github.com/user-attachments/assets/82194c50-8816-420d-9462-9e9500b89b07)
+#### Remoções:
+![image](https://github.com/user-attachments/assets/d86173eb-8e98-493b-b10b-a6fa13717646)
 
-### Comparação de Operações nas Árvores
-![image](https://github.com/user-attachments/assets/4d4258ee-0c37-4a2d-8048-9665beeb6ff5)
+
 
 ## Discussão dos Resultados
 A análise do gráfico "Comparação de Operações nas Árvores" revela padrões distintos e esperados de desempenho entre as estruturas:
 
 * **Comportamento Logarítmico:** Todas as estruturas de árvores balanceadas demonstram um crescimento logarítmico no número de operações à medida que o tamanho da entrada aumenta. Isso é evidenciado pela forma quase linear das curvas no gráfico com escala logarítmica no eixo Y, confirmando a complexidade teórica de $O(\log N)$ para operações nessas estruturas.
 
-* **Árvores B: Eficiência em Grandes Volumes de Dados:**
-    * As Árvores B, especialmente com ordens maiores (5 e 10), apresentam um número significativamente menor de operações totais (tanto inserções quanto remoções) para grandes volumes de dados. Este desempenho superior é resultado de sua arquitetura de múltiplos filhos, que permite que a árvore seja mais "achatada" (menor altura) ao armazenar mais chaves por nó. Consequentemente, menos acessos a nós são necessários para encontrar ou manipular uma chave.
-    * As linhas rotuladas como "Rotações" para as Árvores B na verdade representam as operações de balanceamento internas a essas árvores, como `split` (divisão de nós) e `merge` (fusão de nós), que são análogas às rotações em árvores binárias balanceadas. Observa-se que, mesmo essas operações são relativamente menos frequentes em árvores B de ordem superior.
-
 * **Impacto da Ordem na Árvore B:**
-    * A **Árvore B (ordem 1)**, que se assemelha a uma árvore binária de busca simples, mostra o maior número de operações entre as Árvores B. Seu desempenho é mais próximo das Árvores AVL e Rubro-Negras. Isso ocorre porque cada nó pode conter apenas uma chave, maximizando a altura da árvore e o número de travessias.
+    * A **Árvore B (Ordem 1):**, que se assemelha a uma árvore binária de busca simples, mostra o maior número de operações entre as Árvores B. Seu desempenho é mais próximo das Árvores AVL e Rubro-Negras. Isso ocorre porque cada nó pode conter apenas uma chave, maximizando a altura da árvore e o número de travessias.
     * À medida que a ordem da Árvore B aumenta para **5 e 10**, há uma diminuição acentuada no número de operações. A ordem 10, em particular, demonstra a melhor performance geral entre as árvores B testadas, validando a otimização de acesso a dados que essa estrutura oferece para ambientes com custos elevados de leitura/escrita de nós (como em armazenamento em disco).
 
-* **AVL e Rubro-Negra: Desempenho Sólido, mas com Mais Operações de Balanceamento:**
+* **AVL e Rubro-Negra:**
     * As Árvores AVL e Rubro-Negras, embora garantam a complexidade $O(\log N)$, tendem a realizar um número maior de operações de balanceamento (rotações) e de manipulação de nós em comparação com as Árvores B de ordem superior para os mesmos tamanhos de entrada. Isso se deve à necessidade de manter um balanceamento mais estrito em cada nó, que pode desencadear uma série de rotações. As linhas de "Inserções", "Remoções" e "Rotações" para AVL e Rubro-Negra estão consistentemente mais elevadas que as das Árvores B de ordens maiores.
 
 * **Inserção vs. Remoção:**
@@ -63,7 +62,8 @@ O projeto foi desenvolvido para comparar a eficiência das operações em difere
 As implementações consideram o número real de operações realizadas, refletindo o custo dos balanceamentos.
 
 Os resultados validam as complexidades teóricas e destacam a vantagem das Árvores B com ordens maiores para cenários com grandes volumes de dados. 
-A escolha da estrutura de árvore ideal, portanto, depende do contexto de aplicação, mas a Árvore B se afirma como uma solução robusta para armazenamento e recuperação eficiente em larga escala.
+
+A escolha da estrutura de árvore ideal, depende do contexto de aplicação, mas a Árvore B, especialmente de ordem 10, se afirma como uma solução mais indicada para armazenamento e recuperação eficiente em larga escala.
 
 ---
 
