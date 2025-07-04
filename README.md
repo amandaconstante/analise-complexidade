@@ -33,9 +33,13 @@ Foram contadas as seguintes operações:
 ### Resultados
 Abaixo estão os gráficos que representam o número médio de operações de balanceamento realizadas conforme o tamanho da entrada. O eixo Y está em escala logarítmica para evidenciar o crescimento assintótico.
 #### Inserções: 
-![image](https://github.com/user-attachments/assets/82194c50-8816-420d-9462-9e9500b89b07)
+![image](https://github.com/user-attachments/assets/bb518761-9d64-4fb8-a638-5a584f654d17)
+
+
+
 #### Remoções:
-![image](https://github.com/user-attachments/assets/d86173eb-8e98-493b-b10b-a6fa13717646)
+![image](https://github.com/user-attachments/assets/179de2cd-74ca-4835-a847-081dcdaa5362)
+
 
 
 
