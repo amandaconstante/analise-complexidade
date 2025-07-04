@@ -155,7 +155,7 @@ int main() {
             printf("Erro ao criar arquivo de saída.\n");
             continue;
         }
-        if (o == 0) fprintf(f, "Tamanho,Ordem,Insercoes,Remocoes,Rotacoes\n");
+        if (o == 0) fprintf(f, "Tamanho,Ordem,Insercoes,Remocoes,Balanceamentos\n");
 
         for (int t = 0; t < num_tamanhos; t++) {
             int tam = tamanhos[t];

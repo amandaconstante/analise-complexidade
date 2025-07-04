@@ -31,10 +31,6 @@ Arvore* criar_arvore() {
 
 No* criar_no(Arvore* a, int valor) {
     No* novo = malloc(sizeof(No));
-    if (!novo) {
-        printf("Erro ao alocar nó.\n");
-        exit(1);
-    }
     novo->valor = valor;
     novo->cor = Vermelho;
     novo->pai = novo->esquerda = novo->direita = a->nulo;
@@ -75,42 +71,37 @@ void rotacao_direita(Arvore* a, No* x) {
 
 void balancear_insercao(Arvore* a, No* z) {
     while (z->pai->cor == Vermelho) {
-        No* pai = z->pai;
-        No* avo = pai->pai;
-
-        if (avo == a->nulo) break;
-
-        if (pai == avo->esquerda) {
-            No* tio = avo->direita;
-            if (tio->cor == Vermelho) {
-                pai->cor = Preto;
-                tio->cor = Preto;
-                avo->cor = Vermelho;
-                z = avo;
+        if (z->pai == z->pai->pai->esquerda) {
+            No* y = z->pai->pai->direita;
+            if (y->cor == Vermelho) {
+                z->pai->cor = Preto;
+                y->cor = Preto;
+                z->pai->pai->cor = Vermelho;
+                z = z->pai->pai;
             } else {
-                if (z == pai->direita) {
-                    z = pai;
+                if (z == z->pai->direita) {
+                    z = z->pai;
                     rotacao_esquerda(a, z);
                 }
-                pai->cor = Preto;
-                avo->cor = Vermelho;
-                rotacao_direita(a, avo);
+                z->pai->cor = Preto;
+                z->pai->pai->cor = Vermelho;
+                rotacao_direita(a, z->pai->pai);
             }
         } else {
-            No* tio = avo->esquerda;
-            if (tio->cor == Vermelho) {
-                pai->cor = Preto;
-                tio->cor = Preto;
-                avo->cor = Vermelho;
-                z = avo;
+            No* y = z->pai->pai->esquerda;
+            if (y->cor == Vermelho) {
+                z->pai->cor = Preto;
+                y->cor = Preto;
+                z->pai->pai->cor = Vermelho;
+                z = z->pai->pai;
             } else {
-                if (z == pai->esquerda) {
-                    z = pai;
+                if (z == z->pai->esquerda) {
+                    z = z->pai;
                     rotacao_direita(a, z);
                 }
-                pai->cor = Preto;
-                avo->cor = Vermelho;
-                rotacao_esquerda(a, avo);
+                z->pai->cor = Preto;
+                z->pai->pai->cor = Vermelho;
+                rotacao_esquerda(a, z->pai->pai);
             }
         }
     }
@@ -125,14 +116,14 @@ void inserir(Arvore* a, int valor) {
 
     while (x != a->nulo) {
         y = x;
-        if (valor == x->valor) {
-            free(z);  // valor duplicado
-            return;
-        }
         if (valor < x->valor)
             x = x->esquerda;
-        else
+        else if (valor > x->valor)
             x = x->direita;
+        else {
+            free(z);
+            return; // não insere duplicados
+        }
     }
 
     z->pai = y;
@@ -146,6 +137,124 @@ void inserir(Arvore* a, int valor) {
     balancear_insercao(a, z);
 }
 
+No* minimo(Arvore* a, No* x) {
+    while (x->esquerda != a->nulo)
+        x = x->esquerda;
+    return x;
+}
+
+void balancear_remocao(Arvore* a, No* x) {
+    while (x != a->raiz && x->cor == Preto) {
+        if (x == x->pai->esquerda) {
+            No* w = x->pai->direita;
+            if (w->cor == Vermelho) {
+                w->cor = Preto;
+                x->pai->cor = Vermelho;
+                rotacao_esquerda(a, x->pai);
+                w = x->pai->direita;
+            }
+            if (w->esquerda->cor == Preto && w->direita->cor == Preto) {
+                w->cor = Vermelho;
+                x = x->pai;
+            } else {
+                if (w->direita->cor == Preto) {
+                    w->esquerda->cor = Preto;
+                    w->cor = Vermelho;
+                    rotacao_direita(a, w);
+                    w = x->pai->direita;
+                }
+                w->cor = x->pai->cor;
+                x->pai->cor = Preto;
+                w->direita->cor = Preto;
+                rotacao_esquerda(a, x->pai);
+                x = a->raiz;
+            }
+        } else {
+            No* w = x->pai->esquerda;
+            if (w->cor == Vermelho) {
+                w->cor = Preto;
+                x->pai->cor = Vermelho;
+                rotacao_direita(a, x->pai);
+                w = x->pai->esquerda;
+            }
+            if (w->direita->cor == Preto && w->esquerda->cor == Preto) {
+                w->cor = Vermelho;
+                x = x->pai;
+            } else {
+                if (w->esquerda->cor == Preto) {
+                    w->direita->cor = Preto;
+                    w->cor = Vermelho;
+                    rotacao_esquerda(a, w);
+                    w = x->pai->esquerda;
+                }
+                w->cor = x->pai->cor;
+                x->pai->cor = Preto;
+                w->esquerda->cor = Preto;
+                rotacao_direita(a, x->pai);
+                x = a->raiz;
+            }
+        }
+    }
+    x->cor = Preto;
+}
+
+void transplante(Arvore* a, No* u, No* v) {
+    if (u->pai == a->nulo)
+        a->raiz = v;
+    else if (u == u->pai->esquerda)
+        u->pai->esquerda = v;
+    else
+        u->pai->direita = v;
+    v->pai = u->pai;
+}
+
+void remover(Arvore* a, int valor) {
+    No* z = a->raiz;
+    while (z != a->nulo) {
+        if (valor == z->valor)
+            break;
+        if (valor < z->valor)
+            z = z->esquerda;
+        else
+            z = z->direita;
+    }
+    if (z == a->nulo) return; // não encontrado
+
+    contador_remocoes++;
+
+    No* y = z;
+    Cor y_cor_original = y->cor;
+    No* x;
+
+    if (z->esquerda == a->nulo) {
+        x = z->direita;
+        transplante(a, z, z->direita);
+    } else if (z->direita == a->nulo) {
+        x = z->esquerda;
+        transplante(a, z, z->esquerda);
+    } else {
+        y = minimo(a, z->direita);
+        y_cor_original = y->cor;
+        x = y->direita;
+        if (y->pai == z)
+            x->pai = y;
+        else {
+            transplante(a, y, y->direita);
+            y->direita = z->direita;
+            y->direita->pai = y;
+        }
+        transplante(a, z, y);
+        y->esquerda = z->esquerda;
+        y->esquerda->pai = y;
+        y->cor = z->cor;
+    }
+
+    free(z);
+
+    if (y_cor_original == Preto)
+        balancear_remocao(a, x);
+}
+
 void gerar_numeros(int* v, int n) {
     for (int i = 0; i < n; i++)
         v[i] = rand() % (n * 10);
@@ -154,27 +263,22 @@ void gerar_numeros(int* v, int n) {
 int main() {
     srand(time(NULL));
     FILE* f = fopen("resultados_rubro_negra.txt", "w");
-    if (!f) {
-        printf("Erro ao abrir arquivo.\n");
-        return 1;
-    }
+    if (!f) return 1;
 
     fprintf(f, "Tamanho,Insercoes,Remocoes,Rotacoes\n");
 
-    for (int tamanho = 100; tamanho <= 1000; tamanho += 100) {
+    for (int tamanho = 100; tamanho <= 10000; tamanho += 1000) {
         contador_insercoes = contador_remocoes = contador_rotacoes = 0;
-
         Arvore* a = criar_arvore();
         int* vetor = malloc(tamanho * sizeof(int));
-        if (!vetor) {
-            printf("Erro ao alocar vetor.\n");
-            return 1;
-        }
 
         gerar_numeros(vetor, tamanho);
-
         for (int i = 0; i < tamanho; i++)
             inserir(a, vetor[i]);
+
+        // Remove 25% dos valores inseridos (aleatoriamente)
+        for (int i = 0; i < tamanho / 4; i++)
+            remover(a, vetor[i]);
 
         fprintf(f, "%d,%d,%d,%d\n", tamanho, contador_insercoes, contador_remocoes, contador_rotacoes);
 
@@ -184,6 +288,6 @@ int main() {
     }
 
     fclose(f);
-    printf("Resultados salvos com sucesso!\n");
+    printf("Arquivo gerado com sucesso.\n");
     return 0;
 }
