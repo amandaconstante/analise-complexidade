@@ -76,9 +76,6 @@ Os experimentos foram implementados em C, com um script Python auxiliar para ger
 
 * Compilação
 ```
-  bash
-  Copiar
-  Editar
   gcc avl.c -o avl
   gcc rubro_negra.c -o rubro_negra
   gcc arvore_b.c -o arvore_b
@@ -86,9 +83,6 @@ Os experimentos foram implementados em C, com um script Python auxiliar para ger
 
 * Execução
 ``` 
-  bash
-  Copiar
-  Editar
   ./avl
   ./rubro_negra
   ./arvore_b
