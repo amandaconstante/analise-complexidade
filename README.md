@@ -97,21 +97,6 @@ Esses comandos geram arquivos `.txt` contendo os resultados médios por estrutur
 
 * Geração dos gráficos
 ```
-python3 gerar_grafico.py
+python3 graph.py
 ```
-O script gerar_grafico.py lê os dados dos arquivos .txt e produz o arquivo grafico.png, que é o gráfico apresentado neste README.md.
-
-* Estrutura de Arquivos
-```
-.
-├── avl.c
-├── rubro_negra.c
-├── arvore_b.c
-├── gerar_grafico.py
-├── resultados_avl.txt
-├── resultados_rubro_negra.txt
-├── resultados_arvore_b.txt
-├── grafico.png
-└── README.md
-```
-
+O script `graph.py` lê os dados dos arquivos .txt e os gráficos apresentados neste README.md.
